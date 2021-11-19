@@ -45,4 +45,11 @@ public interface IWorldMap {
      * @return Object or null if the position is not occupied.
      */
     Object objectAt(Vector2d position);
+
+    /**
+     *returns new position inside map
+     * @param position
+     * @return vector2d position inside
+     */
+    Vector2d forceInBounds(Vector2d position);
 }
