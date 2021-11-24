@@ -1,14 +1,14 @@
 package agh.ics.oop;
 
-public class Animal{
+public class Animal implements IMapElement{
     private Vector2d position;
     private MapDirection direction = MapDirection.NORTH;
     private IWorldMap map;
     public String toString(){
         return direction.toString();
     }
-    public boolean isAt(Vector2d position){
-        return this.position.equals(position);
+    @Override
+    public boolean isAt(Vector2d position){return this.position.equals(position);
     }
     public void move(MoveDirection direction){
         switch (direction) {
@@ -24,9 +24,9 @@ public class Animal{
                     this.position = this.map.forceInBounds(this.position.subtract(this.direction.toUnitVector()));
                 }
             }
-        };
+        }
     }
-
+    @Override
     public Vector2d getPosition() {
         return position;
     }
