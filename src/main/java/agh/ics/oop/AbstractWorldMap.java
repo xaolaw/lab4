@@ -17,8 +17,7 @@ abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver{
     }
     @Override
     public Object objectAt(Vector2d position) {
-        IMapElement a = objects.get(position);
-        return a;
+        return objects.get(position);
     }
     @Override
     public boolean isOccupied(Vector2d position){
