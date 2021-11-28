@@ -1,27 +1,24 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
+import jdk.jshell.ImportSnippet;
 
-abstract class AbstractWorldMap implements IWorldMap{
-    protected List<IMapElement> objects = new ArrayList<>();
+import java.util.HashMap;
+import java.util.Map;
+
+abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver{
+    Map<Vector2d,IMapElement> objects = new HashMap<>();
     @Override
     public boolean place(Animal animal) {
         if (canMoveTo(animal.getPosition())){
-            objects.add(animal);
+            objects.put(animal.getPosition(), animal);
             return true;
         }
         return false;
-
     }
     @Override
     public Object objectAt(Vector2d position) {
-        for (IMapElement cat : objects){
-            if (cat.isAt(position)){
-                return cat;
-            }
-        }
-        return null;
+        IMapElement a = objects.get(position);
+        return a;
     }
     @Override
     public boolean isOccupied(Vector2d position){
@@ -31,10 +28,16 @@ abstract class AbstractWorldMap implements IWorldMap{
     public String toString(){
         Vector2d def = new Vector2d(1000000000,1000000000);
         Vector2d def2 = new Vector2d(-1000000000,-1000000000);
-        for (IMapElement cat : objects){
-            def=def.lowerLeft(cat.getPosition());
-            def2=def2.upperRight(cat.getPosition());
+        for (Vector2d cat : objects.keySet()){
+            def=def.lowerLeft(cat);
+            def2=def2.upperRight(cat);
         }
         return new MapVisualizer(this).draw(def,def2);
+    }
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        IMapElement craeture = objects.get(oldPosition);
+        objects.remove(oldPosition);
+        objects.put(newPosition,craeture);
     }
 }

@@ -18,7 +18,9 @@ class SimulationEngine  implements IEngine{
         int i=0;
         for (MoveDirection m : this.moves){
             Animal animal = (Animal) engine_map.objectAt(Positions[i%Positions.length]);
+            Vector2d oldposition = animal.getPosition();
             animal.move(m);
+            ((GrassField) engine_map).positionChanged(oldposition, animal.getPosition());
             Positions[i%Positions.length]=animal.getPosition();
             i+=1;
             System.out.println(this.engine_map);

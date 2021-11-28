@@ -10,30 +10,19 @@ class GrassField extends AbstractWorldMap{
         double DoubleValue = Math.sqrt(10*positions);
         this.Size = (int) DoubleValue;
         Grass first = new Grass(new Vector2d((int) (Math.random() * Size) ,(int) (Math.random() * Size)));
-        objects.add(first);
+        objects.put(first.getPosition(),first);
         int how_many=1;
         while (how_many!=positions){
             Grass toAdd = new Grass(new Vector2d((int) (Math.random() * Size) ,(int) (Math.random() * Size)));
             if (!isOccupied(toAdd.getPosition())){
-                objects.add(toAdd);
+                objects.put(toAdd.getPosition(),toAdd);
                 how_many+=1;
             }
         }
     }
     @Override
     public Object objectAt(Vector2d position) {
-        Grass grass=null;
-        for (IMapElement cat : objects){
-            if (cat.isAt(position)){
-                if (cat instanceof Animal){
-                    return cat;
-                }
-                else if(cat instanceof Grass){
-                    grass=(Grass) cat;
-                }
-            }
-        }
-        return grass;
+        return objects.get(position);
     }
     @Override
     public boolean canMoveTo(Vector2d position) {
