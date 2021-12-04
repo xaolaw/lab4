@@ -1,8 +1,11 @@
 package agh.ics.oop;
 
+import jdk.jshell.ImportSnippet;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.Math;
+import java.util.TreeSet;
 
 class GrassField extends AbstractWorldMap{
     private int Size;
@@ -11,11 +14,15 @@ class GrassField extends AbstractWorldMap{
         this.Size = (int) DoubleValue;
         Grass first = new Grass(new Vector2d((int) (Math.random() * Size) ,(int) (Math.random() * Size)));
         objects.put(first.getPosition(),first);
+        set.getSetX().add(first);
+        set.getSetY().add(first);
         int how_many=1;
         while (how_many!=positions){
             Grass toAdd = new Grass(new Vector2d((int) (Math.random() * Size) ,(int) (Math.random() * Size)));
             if (!isOccupied(toAdd.getPosition())){
                 objects.put(toAdd.getPosition(),toAdd);
+                set.getSetX().add(toAdd);
+                set.getSetY().add(toAdd);
                 how_many+=1;
             }
         }

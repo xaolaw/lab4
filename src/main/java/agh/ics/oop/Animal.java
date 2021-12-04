@@ -14,6 +14,8 @@ public class Animal implements IMapElement{
     @Override
     public boolean isAt(Vector2d position){return this.position.equals(position);
     }
+
+
     public void move(MoveDirection direction){
         switch (direction) {
             case LEFT -> this.direction = this.direction.previous();
@@ -34,6 +36,7 @@ public class Animal implements IMapElement{
     public Vector2d getPosition() {
         return position;
     }
+
     public void addObserver(IPositionChangeObserver observer){
         observers.add(observer);
     }

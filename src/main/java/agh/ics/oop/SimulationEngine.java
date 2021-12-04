@@ -18,14 +18,17 @@ class SimulationEngine  implements IEngine{
     @Override
     public void run() {
         int i=0;
-        for (MoveDirection m : this.moves){
-            Animal animal = (Animal) engine_map.objectAt(Positions[i%Positions.length]);
-            Vector2d oldPosition = animal.getPosition();
-            animal.move(m);
-            animal.positionChanged(oldPosition, animal.getPosition());
-            Positions[i%Positions.length]=animal.getPosition();
-            i+=1;
-            System.out.println(this.engine_map);
+        if(Positions.length>0){
+            for (MoveDirection m : this.moves) {
+                Animal animal = (Animal) engine_map.objectAt(Positions[i % Positions.length]);
+                Vector2d oldPosition = animal.getPosition();
+                animal.move(m);
+                animal.positionChanged(oldPosition, animal.getPosition());
+                Positions[i % Positions.length] = animal.getPosition();
+                i += 1;
+                System.out.println(this.engine_map);
+            }
         }
+
     }
 }
