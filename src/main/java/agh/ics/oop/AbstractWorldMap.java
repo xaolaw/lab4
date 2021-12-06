@@ -40,16 +40,10 @@ abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver{
         }*/
         return new MapVisualizer(this).draw(def,def2);
     }
-    /*
-    toAdd has values of grass that animal is on. So when he goes off the grass the grass gets back to Hashmap objects, also if
-    the animal changed position TreeSets are updated to generate new borders of Map
-     */
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
         IMapElement craeture = objects.get(oldPosition);
         IMapElement newAdd=null;
-        set.getSetX().remove(craeture);
-        set.getSetY().remove(craeture);
         if (toAdd.size()>0){
             newAdd = toAdd.get(oldPosition);
         }
@@ -61,7 +55,5 @@ abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver{
             objects.put(newAdd.getPosition(),newAdd);
         }
         objects.put(newPosition,craeture);
-        set.getSetX().add(craeture);
-        set.getSetY().add(craeture);
     }
 }

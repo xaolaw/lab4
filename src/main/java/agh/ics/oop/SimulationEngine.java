@@ -1,6 +1,6 @@
 package agh.ics.oop;
 
-class SimulationEngine  implements IEngine{
+public class SimulationEngine  implements IEngine{
     private IWorldMap engine_map;
     private MoveDirection [] moves;
     private Vector2d [] Positions;

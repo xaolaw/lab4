@@ -7,7 +7,7 @@ import java.util.List;
 import java.lang.Math;
 import java.util.TreeSet;
 
-class GrassField extends AbstractWorldMap{
+public class GrassField extends AbstractWorldMap{
     private int Size;
     public GrassField(int positions){
         double DoubleValue = Math.sqrt(10*positions);
@@ -37,6 +37,6 @@ class GrassField extends AbstractWorldMap{
     }
     @Override
     public Vector2d forceInBounds(Vector2d position) {
-       return position;
+        return position;
     }
 }
