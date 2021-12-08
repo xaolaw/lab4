@@ -14,15 +14,15 @@ public class GrassField extends AbstractWorldMap{
         this.Size = (int) DoubleValue;
         Grass first = new Grass(new Vector2d((int) (Math.random() * Size) ,(int) (Math.random() * Size)));
         objects.put(first.getPosition(),first);
-        set.getSetX().add(first);
-        set.getSetY().add(first);
+        set.getSetX().put(first.getPosition(),first);
+        set.getSetY().put(first.getPosition(),first);
         int how_many=1;
         while (how_many!=positions){
             Grass toAdd = new Grass(new Vector2d((int) (Math.random() * Size) ,(int) (Math.random() * Size)));
             if (!isOccupied(toAdd.getPosition())){
                 objects.put(toAdd.getPosition(),toAdd);
-                set.getSetX().add(toAdd);
-                set.getSetY().add(toAdd);
+                set.getSetX().put(toAdd.getPosition(),toAdd);
+                set.getSetY().put(toAdd.getPosition(),toAdd);
                 how_many+=1;
             }
         }

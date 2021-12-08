@@ -52,4 +52,6 @@ public interface IWorldMap {
      * @return vector2d position inside
      */
     Vector2d forceInBounds(Vector2d position);
+    Vector2d borderDown();
+    Vector2d borderUP();
 }

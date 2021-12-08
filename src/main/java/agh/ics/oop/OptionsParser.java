@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.List;
+
 public class OptionsParser {
     public MoveDirection[] parse(String [] args){
         MoveDirection[] toReturn=new MoveDirection[args.length];
@@ -15,4 +17,20 @@ public class OptionsParser {
             }
         return toReturn;
         }
+    public MoveDirection[] parse(List<String> args){
+        MoveDirection[] toReturn=new MoveDirection[args.size()];
+        int indeks=0;
+        for (String arg : args){
+            switch (arg) {
+                case "f", "forward" -> toReturn[indeks] = MoveDirection.FORWARD;
+                case "b", "backward" -> toReturn[indeks] = MoveDirection.BACKWARD;
+                case "l", "left" -> toReturn[indeks] = MoveDirection.LEFT;
+                case "r", "right" -> toReturn[indeks] = MoveDirection.RIGHT;
+                default -> throw new IllegalArgumentException("Cannot understand this move " + args);
+            }
+            indeks+=1;
+        }
+        return toReturn;
+    }
 }
+

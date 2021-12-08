@@ -9,7 +9,6 @@ public class SimulationEngine  implements IEngine{
         for (Vector2d vec : t_vec){
             Animal animal = new Animal(map,vec);
             map.place(animal);
-            animal.addObserver((IPositionChangeObserver) map);
         }
         this.moves=t_move;
         this.Positions=t_vec;

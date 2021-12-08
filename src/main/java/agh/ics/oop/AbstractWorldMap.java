@@ -5,9 +5,15 @@ import jdk.jshell.ImportSnippet;
 import java.util.*;
 
 abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver{
-    MapBoundary set = new MapBoundary(new TreeSet<>(new MyComparatorX()),new TreeSet<>(new MyComparatorY()));
+    MapBoundary set = new MapBoundary();
     Map<Vector2d,IMapElement> objects = new HashMap<>();
     Map<Vector2d,IMapElement> toAdd = new HashMap<>();
+    public Vector2d borderDown(){
+        return new Vector2d(set.getSetX().firstKey().x,set.getSetY().firstKey().y);
+    }
+    public Vector2d borderUP(){
+        return new Vector2d(set.getSetX().lastKey().x,set.getSetY().lastKey().y);
+    }
     @Override
     public boolean place(Animal animal) {
         if (canMoveTo(animal.getPosition())){
@@ -15,8 +21,10 @@ abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver{
                 toAdd.put(objects.get(animal.getPosition()).getPosition(),objects.get(animal.getPosition()));
             }
             objects.put(animal.getPosition(), animal);
-            set.getSetX().add(animal);
-            set.getSetY().add(animal);
+            set.getSetX().put(animal.getPosition(),animal);
+            set.getSetY().put(animal.getPosition(),animal);
+            animal.addObserver(this);
+            animal.addObserver(set);
             return true;
         }
         throw new IllegalArgumentException("This position is already occupied " + animal.getPosition());
@@ -31,8 +39,8 @@ abstract class AbstractWorldMap implements IWorldMap,IPositionChangeObserver{
     }
     @Override
     public String toString(){
-        Vector2d def = new Vector2d(set.getSetX().first().getPosition().x,set.getSetY().first().getPosition().y);
-        Vector2d def2 = new Vector2d(set.getSetX().last().getPosition().x,set.getSetY().last().getPosition().y);
+        Vector2d def = new Vector2d(set.getSetX().firstKey().x,set.getSetY().firstKey().y);
+        Vector2d def2 = new Vector2d(set.getSetX().lastKey().x,set.getSetY().lastKey().y);
         /*
         for (Vector2d cat : objects.keySet()){
             def=def.lowerLeft(cat);
